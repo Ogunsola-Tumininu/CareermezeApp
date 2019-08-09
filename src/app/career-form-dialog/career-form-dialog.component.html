@@ -1,3 +1,74 @@
-<p>
-  career-form-dialog works!
-</p>
+<div mat-dialog-title style="text-align: center; width:100%">
+    <h1>Career Path</h1>
+</div>
+
+<div mat-dialog-content>
+    <div class="col-md-12" *ngIf="allCareer.length > 4">
+        <h2 >You have added the maximum number of career</h2>
+    </div>
+
+    <div *ngIf="allCareer.length <5 "  class="mb-24">
+        
+        <!-- REACTIVE FORM EXAMPLE -->
+
+        <form>
+            <div *ngIf="allCareer.length <5" >
+                <mat-form-field >
+                    <mat-select placeholder="Industry" name=industry [(ngModel)]="industry" (ngModelChange)="onIndustryChange($event)">
+                        <mat-option *ngFor="let industry of industries" [value]="industry.name">{{industry.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field >
+                    <mat-select placeholder="Career" name=career [(ngModel)]="career" (ngModelChange)="onCareerChange($event)">
+                        <mat-option *ngFor="let career of careers" [value]="career">{{career.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <div *ngIf="skills.length > 0">
+                <h2>Drag the slider to show your proficiency in each skill</h2>
+            </div>
+            <div *ngIf="allCareer.length <= 4" >
+
+
+                <div *ngFor="let skill of skills; let index = index; trackBy: trackByIndex ">
+                    <div>
+                        <h3>{{skill.name}}</h3>
+                    </div>
+                    <div >
+                        <mat-slider fxFlex="100" (input)="onInputChange($event, skills[index].proficiency)" thumbLabel
+                            [displayWith]="formatLabel" tickInterval="1" min="0" max="3" name="proficiency" [(ngModel)]="skills[index].proficiency">
+                        </mat-slider>
+
+                        <div  style="text-align:left" class="hidden-xs">
+                            <h3 *ngIf="skills[index].proficiency==1">Beginner </h3>
+                            <h3 *ngIf="skills[index].proficiency==2">Intermediate</h3>
+                            <h3 *ngIf="skills[index].proficiency==3">Expert</h3>
+                        </div>
+
+                        <div  style="text-align:left" class="visible-xs">
+                            <h3 *ngIf="skills[index].proficiency==1">1/3 </h3>
+                            <h3 *ngIf="skills[index].proficiency==2">2/3</h3>
+                            <h3 *ngIf="skills[index].proficiency==3">3/3</h3>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+
+        <!-- / REACTIVE FORM EXAMPLE -->
+
+    </div>
+</div>
+<hr>
+<mat-dialog-actions>
+    <button *ngIf="!showWait" mat-raised-button (click)="onCloseCancel()" class="warn">Cancel</button>
+    <button *ngIf="!showWait" mat-button (click)="onCareerSubmit()" class="primary">Submit</button>
+    <button *ngIf="showWait"mat-button  class="primary">Please wait ...</button>
+</mat-dialog-actions>

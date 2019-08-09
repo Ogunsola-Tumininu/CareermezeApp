@@ -42,9 +42,17 @@ export class UserService {
     return this.http.get(this.url +'/adminusers/certification');
   }
 
+  getIndustry(): Observable<any[]>{
+        return this.http.get<any[]>(this.url +'/adminusers/industry');
+      }
+
   getAllCareer(){
     return this.http.get(this.url +'/adminusers/career');
   }
+
+  getCareerByIndustry(industryName){
+        return this.http.get(this.url +'/adminusers/career/industry/' + industryName);
+      }
 
   addProfile(id, input){
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
