@@ -1,0 +1,7 @@
+{
+  "name": "CareermezeApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

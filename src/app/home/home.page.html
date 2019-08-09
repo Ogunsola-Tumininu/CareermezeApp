@@ -1,0 +1,113 @@
+<ion-header>
+  <app-header [newProfile]="user"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Career</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" *ngFor="let career of user.career let index_i = index; trackBy: trackByIndex">
+            <div *ngIf="active[index_i]==true" class="title" (click)="showSkill(career, index_i)"><a
+                style="color:red; cursor:pointer">{{career.name}}</a></div>
+            <div *ngIf="active[index_i]==false" class="title" (click)="showSkill(career, index_i)"><a
+                style="cursor:pointer">{{career.name}}</a></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ careerName }} Summary </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{careerDesc}}</p>
+      <p><b>Minimum requirement: </b> {{ min_req }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Skill Profile {{' - ' + careerName}} </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let skill of careerSkills">
+          <ion-col size="12">
+            <p>{{skill.name}}</p>
+          </ion-col>
+          <ion-col size="12">
+            <div *ngIf="skill.proficiency === '1'" class="progress">
+              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="33.3" aria-valuemin="0"
+                aria-valuemax="100" style="width:33.3%">
+                Beginner
+              </div>
+            </div>
+            <div *ngIf="skill.proficiency === '2'" class="progress">
+              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="66.7" aria-valuemin="0"
+                aria-valuemax="100" style="width:66.7%">
+                Intermediate
+              </div>
+            </div>
+
+            <div *ngIf="skill.proficiency === '3'" class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100" style="width:100%">
+                Expert
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>My Learning Path</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let skill of careerSkills">
+            <button type="button" class="btn btn-default btn-circle btn-xl text-truncate">
+              <p>{{ skill.name}}</p>
+            </button>
+            <button type="button" class="btn btn-primary btn-arrow-right ">{{ skill.duration}} days</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div class="col-md-12 col-xs-12 col-xl-8">
+        <div class="progress">
+          <div *ngIf="total < 41" class="progress-bar progress-bar-danger lessthan40" role="progressbar"
+            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width' : total + '%' }">
+            {{ total }}% Complete
+          </div>
+          <div *ngIf="total > 40 && total < 99" class="progress-bar progress-bar-warning lessthan100" role="progressbar"
+            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width' : total + '%' }">
+            {{ total }}% Complete
+          </div>
+          <div *ngIf="total == 100" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width' : total + '%' }">
+            {{ total }}% Complete
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <friends-and-groups></friends-and-groups>
+
+  <vacancies></vacancies>
+
+</ion-content>

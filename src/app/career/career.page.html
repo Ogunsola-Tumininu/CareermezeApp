@@ -1,0 +1,61 @@
+<ion-header>
+  <app-header [newProfile]="user"></app-header>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="openDialog()" style="margin:20px " expand="block" fill="outline" color="primary">Add Career
+  </ion-button>
+  <div class="col-md-12">
+    <p style="text-align:center"><b> Select Preferred Career</b></p>
+    <div class="col-md-3 col-xs-12" *ngFor="let career of user.career">
+      <br>
+      <label *ngIf="!career.preferred" class="radio-inline"><input type="radio" name="optradio"
+          (click)="updatePeference(career._id)">{{career.name}}</label>
+      <label *ngIf="career.preferred" class="radio-inline"><input type="radio" name="optradio"
+          (click)="updatePeference(career._id)" checked>{{career.name}}</label>
+    </div>
+    <div *ngIf="!user.career" class="col-md-12">
+      <div class="col-md-3 col-xs-12 textPreloader"></div>
+      <div class="col-md-3 col-xs-12 textPreloader"></div>
+      <div class="col-md-3 col-xs-12 textPreloader"></div>
+    </div>
+  </div>
+
+  <p style="color: white">{{user.career}}</p>
+
+  <ion-card *ngFor="let career of user.career">
+    <ion-card-header>
+      <p><b>{{career.name}}</b>
+        <ion-icon style="font-size:1.2em" (click)="openDelDialog(career)" name="trash" class="pull-right"></ion-icon>
+      </p>
+    </ion-card-header>
+
+    <ion-card-content style="padding-top:0 ">
+      <ion-grid *ngFor="let skill of career.skills">
+        <ion-row>
+          <ion-col size="12">
+            <div>
+              <div class="skill-head">
+                <p>{{skill.name}} <span class="pull-right">
+                    <ion-icon name="time"> </ion-icon> {{skill.duration}}
+                  </span></p>
+              </div>
+              <div class="skill-detail"  style="cursor:pointer" (click)="openUpdateSkillDialog(career._id, skill)">
+                <p *ngIf="skill.proficiency < 2"><b>Proficiency: </b> Beginner </p>
+                <p *ngIf="skill.proficiency == 2"><b>Proficiency: </b>Intermediate</p>
+                <p *ngIf="skill.proficiency == 3"><b>Proficiency: </b>Expert </p>
+                <p>0% Complete</p>
+              </div>
+              <div *ngIf="skill.link" class="skill-footer">
+                <a mat-button *ngIf="skill.proficiency < '3'" href="{{skill.link}}" color="accent" target="blank">
+                  START
+                </a>
+              </div>
+            </div>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

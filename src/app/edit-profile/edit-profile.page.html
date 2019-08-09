@@ -1,0 +1,211 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>editProfile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>General Information</ng-template>
+      <mat-form-field fxFlex="100">
+        <input matInput placeholder="Mobile number" type="tel" name="phone" maxlength="11" value="{{user.phone}}"
+          [(ngModel)]="phone" required>
+        <mat-hint align="end">{{phone.length}} / 11</mat-hint>
+        <mat-error>Telephone No is required!</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-select placeholder="Gender" name="gender" value="{{user.gender}}" [(ngModel)]="gender" required>
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="width:80%">
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" name="dob" value="{{user.dob}}"
+          [(ngModel)]="dob" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
+
+
+      <mat-form-field fxFlex="100">
+        <input matInput placeholder="Address" name="address" value="{{user.address}}" [(ngModel)]="address" required>
+        <mat-error>Address is required!</mat-error>
+
+      </mat-form-field>
+
+
+      <mat-form-field class="field-full-width">
+        <textarea matInput placeholder="About Me" rows="5" name="about" value="{{user.about}}"
+          [(ngModel)]="about"></textarea>
+      </mat-form-field>
+      <div>
+        <button  color="primary" mat-stroked-button matStepperNext>Next</button> &nbsp;&nbsp;&nbsp;
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Education</ng-template>
+      <mat-form-field style="width:100%">
+        <mat-select placeholder="status" name="status" value="{{user.status}}" [(ngModel)]="status" required>
+          <mat-option value="Undergraduate">Undergraduate</mat-option>
+          <mat-option value="Graduate">Graduate</mat-option>
+        </mat-select>
+        <mat-error> Required</mat-error>
+      </mat-form-field>
+      <div *ngIf="status =='Graduate'">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="Qualification" name="qualification" value="{{user.qualification}}"
+            [(ngModel)]="qualification" required>
+            <mat-option value="B Sc">B Sc</mat-option>
+            <mat-option value="B Ed">B Ed</mat-option>
+            <mat-option value="B Eng">B Eng</mat-option>
+            <mat-option value="Masters">Masters</mat-option>
+          </mat-select>
+          <mat-error> Required</mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="Grade" name="grade" value="{{user.class}}" [(ngModel)]="grade" required>
+            <mat-option value="First Class">First Class</mat-option>
+            <mat-option value="Second Class Upper">Second Class Upper</mat-option>
+            <mat-option value="Second Class Lower">Second Class Lower</mat-option>
+            <mat-option value="Third Class">Third Class</mat-option>
+            <mat-option value="Pass">Pass</mat-option>
+          </mat-select>
+          <mat-error> Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div *ngIf="status=='Undergraduate'">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="Level" name="level" value="{{user.year}}" [(ngModel)]="level" required>
+            <mat-option value="100">100</mat-option>
+            <mat-option value="200">200</mat-option>
+            <mat-option value="300">300</mat-option>
+            <mat-option value="400">400</mat-option>
+            <mat-option value="500">500</mat-option>
+            <mat-option value="600">600</mat-option>
+
+          </mat-select>
+          <mat-error> Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="CGPA" type="text" name="cgpa" value="{{user.cgpa}}" [(ngModel)]="cgpa" required>
+          <mat-error> Required</mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field style="width:100%">
+        <mat-select placeholder="Course of Study" name="course" [(ngModel)]="course" required>
+          <mat-option *ngFor="let course of courses" value="{{course.name}}">{{course.name}}</mat-option>
+          <mat-option value="Others">Others</mat-option>
+        </mat-select>
+        <mat-error>Course of Study Required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="University" name="university" [(ngModel)]="university" required>
+          <mat-option *ngIf="user.university" selected="selected" value="{{user.university}}">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{user.university}}</mat-option>
+          <mat-option *ngFor="let university of universities" value="{{university.name}}">
+            &nbsp;&nbsp;&nbsp;&nbsp;{{university.name}}</mat-option>
+          <mat-option value="Others"> &nbsp;&nbsp;&nbsp;&nbsp;Others</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div>
+        <button color="primary" mat-stroked-button mat-button matStepperPrevious>Back</button>&nbsp;&nbsp;&nbsp;
+        <button color="primary" mat-stroked-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Certification</ng-template>
+      
+      <mat-form-field >
+          <mat-select placeholder="Certification" name="certification" [(ngModel)]="certification">
+              <mat-option *ngFor="let cert of certifications" value="{{cert.name}}">{{cert.name}}</mat-option>
+              <mat-option value="others">Others</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field >
+          <input matInput placeholder="Year" name="certYear" [(ngModel)]="certYear"
+              maxlength="4">
+          <mat-hint align="end">{{certYear.length}} / 4</mat-hint>
+      </mat-form-field>
+      <a class="btn btn-link visible-xs" (click)="pushCert()">Add</a>
+
+      <div *ngIf="showCert" style="width:100%;">
+          <div class="col-xs-12"  style="margin-top: 30px"><b>Certifications</b></div>
+         <br>
+          <div *ngFor="let certs of allCert" class="col-xs-12 cert" >
+              <p>{{ certs.name }}</p>
+              <div class="col-xs-6 "> <small>{{ certs.year }}</small> </div>
+              <div class="col-xs-6">
+                  <button style="background-color: white" (click)="delCert(certs.name)">
+                      <mat-icon style="background-color: white; color: gray">delete</mat-icon>
+                  </button>
+              </div>
+              <br>
+          </div>
+
+      </div> <br>
+      
+      <div>
+        <button color="primary" mat-stroked-button matStepperPrevious>Back</button>&nbsp;&nbsp;&nbsp;
+        <button color="primary" mat-stroked-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Training</ng-template>
+        
+        <mat-form-field >
+            <input matInput placeholder="Training" type="text" name="training"
+                [(ngModel)]="training">
+        </mat-form-field>
+
+        <mat-form-field >
+            <input matInput placeholder="Year" name="trainingYear" [(ngModel)]="trainingYear"
+                maxlength="4">
+            <mat-hint align="end">{{trainingYear.length}} / 4</mat-hint>
+        </mat-form-field>
+        <a class="btn btn-link visible-xs" (click)="pushTrainings()">Add</a>
+  
+        <div *ngIf="showTraining" style="width:100%;">
+            <div class="col-xs-12"  style="margin-top: 30px"><b>Trainings</b></div>
+           <br>
+            <div *ngFor="let trainings of allTraining" class="col-xs-12 cert" >
+                <p>{{trainings.name }}</p>
+                <div class="col-xs-6 "> <small>{{ trainings.year }}</small> </div>
+                <div class="col-xs-6">
+                    <button style="background-color: white" (click)="delTraining(trainings.name)">
+                        <mat-icon style="background-color: white; color: gray">delete</mat-icon>
+                    </button>
+                </div>
+                <br>
+            </div>
+  
+        </div> <br>
+        
+        <div>
+          <button  color="primary" mat-stroked-button matStepperPrevious>Back</button>&nbsp;&nbsp;&nbsp;
+          <button  color="primary"mat-stroked-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      Click submit to update. <br>
+      <div>
+        <button color="primary" mat-stroked-button matStepperPrevious>Back</button> &nbsp;&nbsp; &nbsp;
+        <button mat-raised-button color="primary" (click)="onProfileSubmit()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</ion-content>

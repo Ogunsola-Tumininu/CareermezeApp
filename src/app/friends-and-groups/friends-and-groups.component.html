@@ -1,0 +1,45 @@
+<ion-card>
+    <ion-card-header>
+      <ion-card-title>Friends </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size='3'  *ngFor="let friend of friends" >
+            <a routerLink="/{{friend._id}}"> <img class="img img-rounded" [src]="friend.profileImage" style="height:40px; width: 50px"> </a>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+      <ion-card-header>
+        <ion-card-title>Joined Group</ion-card-title>
+      </ion-card-header>
+  
+      <ion-card-content>
+        <ion-grid>
+          <ion-row  *ngFor="let group of groups" style="cursor: pointer" >
+            
+              <ion-col size="3" >
+                <a routerLink="/tabs/group/{{group._id}}" style="color:black" >
+                  <img [src]="group.groupImage" class="logo" alt="{{group.name}}"/>
+                </a>
+              </ion-col>
+  
+              <ion-col size="9">
+                <a routerLink="/tabs/group/{{group._id}}"  style="color:black" >
+                  <p ><b>{{group.name}}</b></p>
+                  <p>{{group.members.length}} members</p>
+                </a>
+              </ion-col>
+            
+          </ion-row>
+        </ion-grid>
+        <a class="pull-right" style="color: black"routerLink="/tabs/contact">
+          <span>See more...</span>
+        </a>
+      </ion-card-content>
+    </ion-card>

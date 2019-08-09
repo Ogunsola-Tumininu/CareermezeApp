@@ -1,0 +1,60 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content padding>
+  <div class="logo">
+    <ion-img src="https://res.cloudinary.com/ha07zfj3c/image/upload/v1543224529/profile-img/career.png"
+      style="width:200px; height: auto"></ion-img>
+  </div>
+  <div class="title">
+    <h4>Login To Your Account</h4>
+  </div>
+  <form name="loginForm" [formGroup]="loginForm" novalidate>
+    
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email" [(ngModel)]="email" name="email">
+          <mat-error *ngIf="loginForm.get('email').hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="!loginForm.get('email').hasError('required') &&
+                        loginForm.get('email').hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password" [(ngModel)]="password"
+            name="password">
+          <mat-error>
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+
+    <div class="remember-forgot-password">
+
+      <a class="forgot-password" [routerLink]="'/forgot-password'">
+        Forgot Password?
+      </a>
+      <br><br>
+    </div>
+    <div *ngIf="expiry" class="remember-forgot-password">
+      <ion-button mat-button color="default" class="submit-button" (click)="onResendLink()"> Resend Account Verification
+        Link
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" color="primary" class="submit-button" (click)="onLoginSubmit()" aria-label="LOGIN"
+      [disabled]="loginForm.invalid">
+      LOGIN
+    </ion-button>
+  </form>
+
+  <div class="register" fxLayout="column" fxLayoutAlign="center center">
+    <span class="text">Don't have an account?</span><br>
+    <a class="link" routerLink="/registration">Create an account</a>
+  </div>
+</ion-content>

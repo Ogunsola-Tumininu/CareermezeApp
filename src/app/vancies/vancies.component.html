@@ -1,0 +1,34 @@
+<ion-card>
+    <ion-card-header>
+      <ion-card-title >Vacancies</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let job of jobs" class="advert" >
+          
+            <ion-col size="3" >
+              <a routerLink="/tabs/vacancy/{{job._id}}" style="color:black" >
+                <img *ngIf="job.company_logo" [src]="job.company_logo"   alt="{{job.company_name}}">
+                <img *ngIf="!job.company_logo" class="logo" 
+                  src="https://res.cloudinary.com/ha07zfj3c/image/upload/v1549543502/company-logo/logo.jpg"
+                  alt="{{job.company_name}}">
+              </a>
+            </ion-col>
+
+            <ion-col size="9">
+              <a routerLink="/tabs/vacancy/{{job._id}}" style="color:black" >
+                <p><b>{{job.company_name}}</b></p>
+                <p>{{job.job_title}}</p>
+                <p style="font-size: 0.8em"><b>Deadline: </b>{{job.deadline | date }}  </p>
+                <p><small>{{job.applicant.length}} people applied</small></p>
+              </a>
+            </ion-col>
+          
+        </ion-row>
+      </ion-grid>
+      <a class="pull-right" style="color: black"routerLink="/tabs/vacancy-list">
+        <span>See more...</span>
+      </a>
+    </ion-card-content>
+  </ion-card>
